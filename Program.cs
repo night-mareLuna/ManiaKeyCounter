@@ -7,7 +7,11 @@
 		{
 			Console.WriteLine("Relative path to osu file: ");
 			var file = Console.ReadLine();
+			PrintKeyCount(file);
+		}
 
+		private static void PrintKeyCount(string file)
+		{
 			if(IsOsuManiaFile(file))
 			{
 				int[] lanecounter = CountLanes.Keys(GetObjects.Lanes(file), GetObjects.GetHitObjects(file));
@@ -21,7 +25,6 @@
 				Console.WriteLine("Specified file is not an osu!mania file, could not find file or file does not exist.");
 				return;
 			}
-			
 		}
 
 		private static bool IsOsuManiaFile(string file)
