@@ -27,7 +27,7 @@ public class PrintKeys
 				string[] osuFile = File.ReadAllLines(file);
 				if(!osuFile[0].Contains("osu file format")) return false;
 				foreach(string line in osuFile)
-			{
+				{
 					if(line.Contains("Mode:"))
 					{
 						if(line[^1] == '3') return true;
