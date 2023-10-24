@@ -1,5 +1,5 @@
 ﻿namespace KeyCounter;
-public class CountLanes
+public class CountKeys
 {
 	public static int[] Keys(int lanes, List<string> file)
 	{
