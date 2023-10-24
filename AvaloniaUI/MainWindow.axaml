@@ -11,7 +11,8 @@
 			Background="Pink">
 			<TextBlock Margin="5" 
 				FontSize="20"
-				HorizontalAlignment="Center" 
+				HorizontalAlignment="Center"
+				Foreground="Black"
 				Text="Mania Key Counter">
 			</TextBlock>
 		</Border>
