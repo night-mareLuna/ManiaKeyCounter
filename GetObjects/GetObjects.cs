@@ -38,7 +38,7 @@ public class GetObjects
 			{
 				if(line.Contains("CircleSize"))
 				{
-					return (int)Char.GetNumericValue(line[^1]);
+					return int.Parse(line.Split(':')[1]);
 				}
 			}
 		}
