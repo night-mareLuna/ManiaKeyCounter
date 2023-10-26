@@ -1,5 +1,6 @@
 .vscode
 test_files
+config.json
 
 # Build results
 [Dd]ebug/
