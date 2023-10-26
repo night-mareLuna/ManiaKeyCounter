@@ -1,50 +1,33 @@
 ﻿namespace KeyCounter;
 public class GetObjects
 {
-	public static List<string> GetHitObjects(string file)
+	public static List<string> GetHitObjects(string[] osuFile)
 	{
-		try
-		{
-			string[] osuFile = File.ReadAllLines(file);
-			List<string> hitObjects = new();
+		List<string> hitObjects = new();
 			
-			bool foundObjects = false;
-			for(int i = 0; i < osuFile.Length; i++)
-			{
-				if(foundObjects) hitObjects.Add(osuFile[i]);
-				else
-				{
-					foundObjects = osuFile[i] == "[HitObjects]";
-					continue;
-				}
-			}
-			return hitObjects;
-		}
-		catch (IOException e)
+		bool foundObjects = false;
+		for(int i = 0; i < osuFile.Length; i++)
 		{
-			Console.WriteLine(e.Message);
-			return new();
+			string line = osuFile[i];
+			if(foundObjects) hitObjects.Add(osuFile[i]);
+			else
+			{
+				foundObjects = osuFile[i].Contains("[HitObjects]");
+				continue;
+			}
 		}
+		return hitObjects;
 		
 	}
 
-	public static int Lanes(string file)
+	public static int Lanes(string[] osuFile)
 	{
-		try
+		foreach(string line in osuFile)
 		{
-			string[] osuFile = File.ReadAllLines(file);
-
-			foreach(string line in osuFile)
+			if(line.Contains("CircleSize"))
 			{
-				if(line.Contains("CircleSize"))
-				{
-					return int.Parse(line.Split(':')[1]);
-				}
+				return int.Parse(line.Split(':')[1]);
 			}
-		}
-		catch (IOException e)
-		{
-			Console.WriteLine(e.Message);
 		}
 		return 0;
 	}
