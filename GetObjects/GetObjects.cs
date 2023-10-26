@@ -8,7 +8,6 @@ public class GetObjects
 		bool foundObjects = false;
 		for(int i = 0; i < osuFile.Length; i++)
 		{
-			string line = osuFile[i];
 			if(foundObjects) hitObjects.Add(osuFile[i]);
 			else
 			{
@@ -30,5 +29,20 @@ public class GetObjects
 			}
 		}
 		return 0;
+	}
+
+	public static bool IsOsuManiaFile(string[] osuFile)
+	{
+		if(osuFile==null) return false;
+		if(!osuFile[0].Contains("osu file format")) return false;
+		foreach(string line in osuFile)
+		{
+			if(line.Contains("Mode:"))
+			{
+				if(line.Contains('3')) return true;
+				else return false;
+			}
+		}
+		return false;
 	}
 }
