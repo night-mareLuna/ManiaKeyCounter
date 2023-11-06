@@ -24,11 +24,19 @@ public class GetObjects
 		foreach(string line in osuFile)
 		{
 			if(line.Contains("CircleSize"))
-			{
 				return int.Parse(line.Split(':')[1]);
-			}
 		}
 		return 0;
+	}
+
+	public static string DiffName(string[] osuFile)
+	{
+		foreach(string line in osuFile)
+		{
+			if(line.Contains("Version"))
+				return line.Split(':')[1];
+		}
+		return "";
 	}
 
 	public static bool IsOsuManiaFile(string[] osuFile)
