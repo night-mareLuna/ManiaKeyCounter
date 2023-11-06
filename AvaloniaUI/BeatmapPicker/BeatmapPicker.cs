@@ -18,7 +18,7 @@ public class BeatmapPicker
 
 		if(file.Count > 0)
 		{
-			// Check if file is less than 1mb in size
+			// Check if file is less than 2mb in size
 			if((await file[0].GetBasicPropertiesAsync()).Size < 1024 * 1024 * 2)
 			{
 				string? folder = await (await file[0].GetParentAsync()).SaveBookmarkAsync();
