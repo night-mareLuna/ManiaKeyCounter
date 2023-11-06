@@ -1,9 +1,9 @@
 ﻿namespace KeyCounter;
 public class OutputText
 {
-	public static string GetDisplayText(string[] osuFile)
+	public static string GetDisplayText(string[] osuFile, bool addDiffName = false)
 	{
-		string display_text = "";
+		string display_text = addDiffName ? $"{GetObjects.DiffName(osuFile)}\r" : "";
 		List<string> raw_hitobjects = GetObjects.GetHitObjects(osuFile);
 		int key_count = GetObjects.Lanes(osuFile);
 		
