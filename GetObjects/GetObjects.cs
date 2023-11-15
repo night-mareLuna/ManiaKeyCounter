@@ -34,7 +34,13 @@ public class GetObjects
 		foreach(string line in osuFile)
 		{
 			if(line.Contains("Version"))
-				return line.Split(':')[1];
+			{
+				string diffName = line.Remove(0, line.Split(':')[0].Length + 1);
+				diffName = diffName.Contains('\r') ? diffName.Remove(diffName.IndexOf('\r')) : diffName;
+
+				return diffName;
+
+			}
 		}
 		return "";
 	}
