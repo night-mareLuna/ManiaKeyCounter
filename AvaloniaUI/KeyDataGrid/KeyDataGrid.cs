@@ -65,6 +65,16 @@ namespace KeyCounter.ViewModels
 					break;
 			}
 		}
+
+		public static List<Keys>? GetCurrentKeyData(int button)
+		{
+			return button switch
+			{
+				1 => It!.KeyData1!.ToList(),
+				2 => It!.KeyData2!.ToList(),
+				_ => null
+			};
+		}
 	}
 }
 
