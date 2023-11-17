@@ -4,7 +4,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="400"
         x:Class="KeyCounter.MainWindow"
+		xmlns:vm="using:KeyCounter.ViewModels"
+        x:DataType="vm:KeyDataGridViewModel"
+		xmlns:local="clr-namespace:KeyCounter;assembly=KeyCounter"
         Title="Mania Key Counter">
+
+		<Window.Resources>
+    		<local:RowBackgroundConverter x:Key="RowBackgroundConverter"/>
+  		</Window.Resources>
+
     <StackPanel>
 		<Border Margin="10 10"
 			CornerRadius="5"
@@ -20,44 +28,84 @@
 		<Grid ColumnDefinitions="295,Auto,Auto" RowDefinitions="Auto,Auto,Auto"  Margin="5 5">
 			<TextBlock Margin="10 5"
 				Grid.Row="0"
-				Grid.Column="0">Result:
-				</TextBlock>
+				Grid.Column="0"
+				Width="280"
+				Text="{Binding DiffName1}"
+				ToolTip.Tip="{Binding DiffName1}">
+			</TextBlock>
 
-			<TextBox Margin="5 5"
+			<TextBlock Margin="10 5"
+				Grid.Row="0"
+				Grid.Column="1"
+				Text="{Binding DiffName2}"
+				ToolTip.Tip="{Binding DiffName2}">
+			</TextBlock>
+
+			<DataGrid Margin="5 5"
+				Name="DataGrid1"
 				Grid.Row="1" Grid.Column="0"
-				FontSize="16"
-				IsReadOnly="true"
-				AcceptsReturn="true"
-				Height="250"
+				Height="350"
 				Width="280"
-				Name="key_counter_1"
-				Watermark="No result calculated"/>
+				ItemsSource="{Binding KeyData1}"
+				AutoGenerateColumns="False"
+				IsReadOnly="True"
+				GridLinesVisibility="All"
+				BorderThickness="1"
+				BorderBrush="White">
+				<DataGrid.Columns>
+					<DataGridTextColumn Header="Key" Width="80" 
+						Binding="{Binding Lane}"/>
+					<DataGridTextColumn Header="Objects" Width="*" 
+						Binding="{Binding KeyCount}"/>
+				</DataGrid.Columns>
+				<DataGrid.Styles>
+					<Style Selector="DataGridRow">
+						<Setter Property="Foreground" Value="{Binding Converter={StaticResource RowBackgroundConverter}, ConverterParameter=1}" />
+					</Style>
+				</DataGrid.Styles>
+			</DataGrid>
 
-			<TextBox Margin="5 5"
+			<DataGrid Margin="5 5"
+				Name="DataGrid2"
 				Grid.Row="1" Grid.Column="1"
-				FontSize="16"
-				IsReadOnly="true"
-				AcceptsReturn="true"
-				Height="250"
+				Height="350"
 				Width="280"
-				Name="key_counter_2"
-				Watermark="No result calculated"/>
+				ItemsSource="{Binding KeyData2}"
+				AutoGenerateColumns="False"
+				IsReadOnly="True"
+				GridLinesVisibility="All"
+				BorderThickness="1"
+				BorderBrush="White">
+				<DataGrid.Columns>
+					<DataGridTextColumn Header="Key" Width="80" 
+						Binding="{Binding Lane}"/>
+					<DataGridTextColumn Header="Objects" Width="*" 
+						Binding="{Binding KeyCount}" />
+				</DataGrid.Columns>
+				<DataGrid.Styles>
+					<Style Selector="DataGridRow">
+						<Setter Property="Foreground" Value="{Binding Converter={StaticResource RowBackgroundConverter}, ConverterParameter=2}" />
+					</Style>
+				</DataGrid.Styles>
+			</DataGrid>
 
 			<Button Margin="5 5"
+				Name="Button1"
 				Width="200"
 				FontSize="16"
 				Grid.Row="2" Grid.Column="0"
-				Click="OpenFile1">
+				Click="OpenFile">
 				<TextBlock 
 					HorizontalAlignment="Center"
 					Text="Select osu!mania file"/>
 			</Button>
 
 			<Button Margin="5 5"
+				Name="Button2"
 				Width="200"
 				FontSize="16"
 				Grid.Row="2" Grid.Column="1"
-				Click="OpenFile2">
+				Click="OpenFile">
 				<TextBlock 
 					HorizontalAlignment="Center"
 					Text="Select osu!mania file"/>

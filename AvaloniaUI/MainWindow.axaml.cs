@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using KeyCounter.ViewModels;
 
 namespace KeyCounter
 {
@@ -8,44 +9,35 @@ namespace KeyCounter
 	    public MainWindow()
 	    {
 	        InitializeComponent();
+			DataContext = new KeyDataGridViewModel();
+
 			Width = 600;
-			Height = 400;
+			Height = 500;
 
 			MinWidth = 600;
-			MinHeight = 400;
+			MinHeight = 500;
 
 			MaxWidth = 600;
-			MaxHeight = 400;
+			MaxHeight = 500;
 	    }
 
-		public void OpenFile1(object source, RoutedEventArgs args)
+		private async void OpenFile(object source, RoutedEventArgs args)
 		{
-			OpenFile(1);
-		}
+			string buttonClicked = (source as Control)!.Name!;
+			int button = (int)char.GetNumericValue(buttonClicked[^1]);
 
-		public void OpenFile2(object source, RoutedEventArgs args)
-		{
-			OpenFile(2);
-		}
-
-		private async void OpenFile(int button)
-		{
 			var storage = StorageProvider;
 			string[]? osuFile = await BeatmapPicker.GetOsuBeatmap(storage);
+
 			if(osuFile is null) return;
-			
-			switch(button)
+			if(!GetObjects.IsOsuManiaFile(osuFile!))
 			{
-				case 1:
-					key_counter_1.Text = GetObjects.IsOsuManiaFile(osuFile!) ? OutputText.GetDisplayText(osuFile!, true) : "This is not an osu!mania file.";
-					break;
-				case 2:
-					key_counter_2.Text = GetObjects.IsOsuManiaFile(osuFile!) ? OutputText.GetDisplayText(osuFile!, true) : "This is not an osu!mania file.";
-					break;
-				default:
-					break;
+				KeyDataGridViewModel.UpdateKeyData(null!, button);
+				Console.WriteLine("Selected file is not an osu!mania beatmap.");
+				return;
 			}
-			
+
+			KeyDataGridViewModel.UpdateKeyData(osuFile, button);
 		}
 	}
 }
