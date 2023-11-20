@@ -25,18 +25,19 @@
 			</TextBlock>
 		</Border>
 
-		<Grid ColumnDefinitions="295,Auto,Auto" RowDefinitions="Auto,Auto,Auto"  Margin="5 5">
-			<TextBlock Margin="10 5"
+		<Grid ColumnDefinitions="290,Auto,Auto" RowDefinitions="Auto,Auto,Auto"  Margin="5 5">
+			<TextBlock Margin="5 5"
 				Grid.Row="0"
 				Grid.Column="0"
-				Width="280"
+				Width="260"
 				Text="{Binding DiffName1}"
 				ToolTip.Tip="{Binding DiffName1}">
 			</TextBlock>
 
-			<TextBlock Margin="10 5"
+			<TextBlock Margin="5 5"
 				Grid.Row="0"
 				Grid.Column="1"
+				Width="260"
 				Text="{Binding DiffName2}"
 				ToolTip.Tip="{Binding DiffName2}">
 			</TextBlock>
@@ -89,27 +90,61 @@
 				</DataGrid.Styles>
 			</DataGrid>
 
-			<Button Margin="5 5"
-				Name="Button1"
-				Width="200"
-				FontSize="16"
-				Grid.Row="2" Grid.Column="0"
-				Click="OpenFile">
-				<TextBlock 
-					HorizontalAlignment="Center"
-					Text="Select osu!mania file"/>
-			</Button>
+			<Grid ColumnDefinitions="Auto,Auto,Auto" RowDefinitions="Auto,Auto,Auto"  Margin="5 5"
+				Grid.Row="2" Grid.Column="0">
 
-			<Button Margin="5 5"
-				Name="Button2"
+				<Button Margin="5 5"
+				Name="ButtonSelectFile1"
 				Width="200"
 				FontSize="16"
-				Grid.Row="2" Grid.Column="1"
+				Grid.Row="0" Grid.Column="0"
 				Click="OpenFile">
 				<TextBlock 
 					HorizontalAlignment="Center"
 					Text="Select osu!mania file"/>
-			</Button>
+				</Button>
+
+				<Button Margin="5 5"
+				Name="ButtonReadOsu1"
+				Width="64"
+				FontSize="16"
+				Grid.Row="0" Grid.Column="1"
+				IsEnabled="{Binding CanReadOsu}"
+				Click="OpenFile">
+				<TextBlock 
+					HorizontalAlignment="Center"
+					Text="osu!"/>
+				</Button>
+			
+			</Grid>
+
+			<Grid ColumnDefinitions="Auto,Auto,Auto" RowDefinitions="Auto,Auto,Auto"  Margin="5 5"
+				Grid.Row="2" Grid.Column="1">
+
+				<Button Margin="5 5"
+				Name="ButtonSelectFile2"
+				Width="200"
+				FontSize="16"
+				Grid.Row="0" Grid.Column="0"
+				Click="OpenFile">
+				<TextBlock 
+					HorizontalAlignment="Center"
+					Text="Select osu!mania file"/>
+				</Button>
+
+				<Button Margin="5 5"
+				Name="ButtonReadOsu2"
+				Width="64"
+				FontSize="16"
+				Grid.Row="0" Grid.Column="1"
+				IsEnabled="{Binding CanReadOsu}"
+				Click="OpenFile">
+				<TextBlock 
+					HorizontalAlignment="Center"
+					Text="osu!"/>
+				</Button>
+			
+			</Grid>
 		</Grid>
 
 		

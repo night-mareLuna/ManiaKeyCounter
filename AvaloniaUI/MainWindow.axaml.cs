@@ -27,10 +27,10 @@ namespace KeyCounter
 			int button = (int)char.GetNumericValue(buttonClicked[^1]);
 
 			var storage = StorageProvider;
-			string[]? osuFile = await BeatmapPicker.GetOsuBeatmap(storage);
+			string[]? osuFile = buttonClicked.Contains("SelectFile") ? await BeatmapPicker.GetOsuBeatmap(storage) : await BeatmapPicker.GetCurrentPlayingOsuBeatmap(storage);
 
 			if(osuFile is null) return;
-			if(!GetObjects.IsOsuManiaFile(osuFile!))
+			if(!GetObjects.IsOsuManiaFile(osuFile))
 			{
 				KeyDataGridViewModel.UpdateKeyData(null!, button);
 				Console.WriteLine("Selected file is not an osu!mania beatmap.");
