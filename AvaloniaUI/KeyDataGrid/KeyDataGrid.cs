@@ -26,9 +26,7 @@ namespace KeyCounter.ViewModels
 			DiffName1 = noResultYet;
 			DiffName2 = noResultYet;
 
-			new Thread(delegate () {
-				CanReadOsu = IsOsuOpen();
-			}).Start();
+			CheckIsOsuOpen();
 		}
 		
 
@@ -83,16 +81,19 @@ namespace KeyCounter.ViewModels
 			};
 		}
 
-		private static bool IsOsuOpen()
+		public static void CheckIsOsuOpen()
 		{
+			It!.CanReadOsu = false;
 			StructuredOsuMemoryReader osu = StructuredOsuMemoryReader.Instance.GetInstanceForWindowTitleHint("");
 			Console.WriteLine("Trying to connect to osu!...");
-			while(!osu.CanRead)
+			new Thread(delegate ()
 			{
-				continue;
-			}
-			Console.WriteLine("Connected to osu!");
-			return true;
+				while(!osu.CanRead)
+					continue;
+
+				Console.WriteLine("Connected to osu!");
+				It!.CanReadOsu = true;
+			}).Start();
 		}
 	}
 }
