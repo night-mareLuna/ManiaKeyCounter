@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -18,6 +18,16 @@
 	<GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
 	<GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
 	<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+
+	<IsWindows Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' == 'true'">true</IsWindows> 
+ 	<IsLinux Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'">true</IsLinux> 
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(IsWindows)'=='true'">
+	<DefineConstants>Windows</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(IsLinux)'=='true'">
+	<DefineConstants>Linux</DefineConstants>
   </PropertyGroup>
 
 
@@ -30,6 +40,6 @@
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.2" />
 	<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-	<PackageReference Include="OsuMemoryDataProvider" Version="0.10.0" />
+	<PackageReference Include="OsuMemoryDataProvider" Version="0.10.0" Condition="'$(IsWindows)'=='true'"/>
   </ItemGroup>
 </Project>

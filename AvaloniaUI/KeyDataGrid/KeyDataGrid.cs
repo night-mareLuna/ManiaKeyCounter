@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+#if Windows
 using OsuMemoryDataProvider;
+#endif
 
 namespace KeyCounter.ViewModels
 {
@@ -84,6 +86,7 @@ namespace KeyCounter.ViewModels
 		public static void CheckIsOsuOpen()
 		{
 			It!.CanReadOsu = false;
+#if Windows
 			StructuredOsuMemoryReader osu = StructuredOsuMemoryReader.Instance.GetInstanceForWindowTitleHint("");
 			Console.WriteLine("Trying to connect to osu!...");
 			new Thread(delegate ()
@@ -97,6 +100,9 @@ namespace KeyCounter.ViewModels
 				Console.WriteLine("Connected to osu!");
 				It!.CanReadOsu = true;
 			}).Start();
+#elif Linux
+			Console.WriteLine("Cannot connect to osu! to read files directly from client.\nThis is only possible in Windows and disabled in Linux builds");
+#endif
 		}
 	}
 }

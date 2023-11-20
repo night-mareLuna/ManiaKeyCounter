@@ -27,8 +27,11 @@ namespace KeyCounter
 			int button = (int)char.GetNumericValue(buttonClicked[^1]);
 
 			var storage = StorageProvider;
+#if Windows
 			string[]? osuFile = buttonClicked.Contains("SelectFile") ? await BeatmapPicker.GetOsuBeatmap(storage) : await BeatmapPicker.GetCurrentPlayingOsuBeatmap(storage);
-
+#elif Linux
+			string[]? osuFile = await BeatmapPicker.GetOsuBeatmap(storage);
+#endif
 			if(osuFile is null) return;
 			if(!GetObjects.IsOsuManiaFile(osuFile))
 			{

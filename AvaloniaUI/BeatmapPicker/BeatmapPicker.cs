@@ -1,8 +1,10 @@
-﻿using System.Diagnostics;
-using Avalonia.Platform.Storage;
+﻿using Avalonia.Platform.Storage;
+#if Windows
+using System.Diagnostics;
 using KeyCounter.ViewModels;
 using OsuMemoryDataProvider;
 using OsuMemoryDataProvider.OsuMemoryModels;
+#endif
 
 namespace KeyCounter;
 public class BeatmapPicker
@@ -25,7 +27,7 @@ public class BeatmapPicker
 
 		return null;
 	}
-
+#if Windows
 	public static async Task<string[]?> GetCurrentPlayingOsuBeatmap(IStorageProvider storage)
 	{
 		StructuredOsuMemoryReader osu = StructuredOsuMemoryReader.Instance.GetInstanceForWindowTitleHint("");
@@ -49,6 +51,7 @@ public class BeatmapPicker
 
 		return await ProcessFile(osuFile!);
 	}
+#endif
 
 	private static async Task<string[]?> ProcessFile(IStorageFile file)
 	{
