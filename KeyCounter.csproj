@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -41,5 +41,10 @@
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.2" />
 	<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 	<PackageReference Include="OsuMemoryDataProvider" Version="0.10.0" Condition="'$(IsWindows)'=='true'"/>
+	
+	<Compile Update="CountKeys/*"/>
+	<Compile Update="GetObjects/*"/>
+	<Compile Update="JsonReader/*"/>
+	<Compile Update="AvaloniaUI/**/*"/>
   </ItemGroup>
 </Project>
