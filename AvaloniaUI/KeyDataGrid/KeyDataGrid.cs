@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+using OsuMemoryDataProvider;
 
 namespace KeyCounter.ViewModels
 {
@@ -13,6 +14,8 @@ namespace KeyCounter.ViewModels
 		private string _DiffName1;
 		[ObservableProperty]
 		private string _DiffName2;
+		[ObservableProperty]
+		private bool _CanReadOsu = false;
 		private static readonly string noResultYet = "No Result Calculated";
 
 		private static KeyDataGridViewModel? It;
@@ -22,6 +25,10 @@ namespace KeyCounter.ViewModels
 
 			DiffName1 = noResultYet;
 			DiffName2 = noResultYet;
+
+			new Thread(delegate () {
+				CanReadOsu = IsOsuOpen();
+			}).Start();
 		}
 		
 
@@ -74,6 +81,18 @@ namespace KeyCounter.ViewModels
 				2 => It!.KeyData2!.ToList(),
 				_ => null
 			};
+		}
+
+		private static bool IsOsuOpen()
+		{
+			StructuredOsuMemoryReader osu = StructuredOsuMemoryReader.Instance.GetInstanceForWindowTitleHint("");
+			Console.WriteLine("Trying to connect to osu!...");
+			while(!osu.CanRead)
+			{
+				continue;
+			}
+			Console.WriteLine("Connected to osu!");
+			return true;
 		}
 	}
 }
