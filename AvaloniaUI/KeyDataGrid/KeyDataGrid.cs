@@ -89,7 +89,10 @@ namespace KeyCounter.ViewModels
 			new Thread(delegate ()
 			{
 				while(!osu.CanRead)
+				{
+					Thread.Sleep(2000);
 					continue;
+				}
 
 				Console.WriteLine("Connected to osu!");
 				It!.CanReadOsu = true;
