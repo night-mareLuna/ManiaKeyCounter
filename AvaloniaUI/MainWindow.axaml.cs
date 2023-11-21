@@ -17,6 +17,12 @@ namespace KeyCounter
 			CanResize = false;
 	    }
 
+		protected override void OnClosing(WindowClosingEventArgs e)
+		{
+			KeyDataGridViewModel.CloseThread();
+			base.OnClosing(e);
+		}
+
 		private async void OpenFile(object source, RoutedEventArgs args)
 		{
 			string buttonClicked = (source as Control)!.Name!;

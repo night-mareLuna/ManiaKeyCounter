@@ -18,6 +18,7 @@ namespace KeyCounter.ViewModels
 		private string _DiffName2;
 		[ObservableProperty]
 		private bool _CanReadOsu = false;
+		private bool isClosed = false;
 		private static readonly string noResultYet = "No Result Calculated";
 
 		private static KeyDataGridViewModel? It;
@@ -93,6 +94,8 @@ namespace KeyCounter.ViewModels
 			{
 				while(!osu.CanRead)
 				{
+					if(It!.isClosed)
+						return;
 					Thread.Sleep(2000);
 					continue;
 				}
@@ -104,6 +107,8 @@ namespace KeyCounter.ViewModels
 			Console.WriteLine("Cannot connect to osu! to read files directly from client.\nThis is only possible in Windows and disabled in Linux builds");
 #endif
 		}
+
+		public static void CloseThread() => It!.isClosed = true;
 	}
 }
 
