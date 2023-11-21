@@ -102,25 +102,25 @@
 
 				<Button Margin="5 5"
 				Name="ButtonSelectFile1"
-				Width="200"
-				FontSize="16"
+				Height="34"
 				Grid.Row="0" Grid.Column="0"
+				ToolTip.Tip="Open file explorer to select osu!mania beatmap."
 				Click="OpenFile">
-				<TextBlock 
-					HorizontalAlignment="Center"
-					Text="Select osu!mania file"/>
+					<Image Source="{SvgImage AvaloniaUI/Assets/icons8-opened-folder.svg}"
+						Height="30"/>
 				</Button>
 
 				<Button Margin="5 5"
 				Name="ButtonReadOsu1"
-				Width="64"
+				Height="34"
 				FontSize="16"
 				Grid.Row="0" Grid.Column="1"
 				IsEnabled="{Binding CanReadOsu}"
+				ToolTip.Tip="Read currently selected beatmap in osu!"
 				Click="OpenFile">
 				<TextBlock 
 					HorizontalAlignment="Center"
-					Text="osu!"/>
+					Text="Read from osu!"/>
 				</Button>
 			
 			</Grid>
@@ -130,25 +130,26 @@
 
 				<Button Margin="5 5"
 				Name="ButtonSelectFile2"
-				Width="200"
+				Height="34"
 				FontSize="16"
 				Grid.Row="0" Grid.Column="0"
+				ToolTip.Tip="Open file explorer to select osu!mania beatmap."
 				Click="OpenFile">
-				<TextBlock 
-					HorizontalAlignment="Center"
-					Text="Select osu!mania file"/>
+					<Image Source="{SvgImage AvaloniaUI/Assets/icons8-opened-folder.svg}"
+						Height="30"/>
 				</Button>
 
 				<Button Margin="5 5"
 				Name="ButtonReadOsu2"
-				Width="64"
+				Height="34"
 				FontSize="16"
 				Grid.Row="0" Grid.Column="1"
 				IsEnabled="{Binding CanReadOsu}"
+				ToolTip.Tip="Read currently selected beatmap in osu!"
 				Click="OpenFile">
 				<TextBlock 
 					HorizontalAlignment="Center"
-					Text="osu!"/>
+					Text="Read from osu!"/>
 				</Button>
 			
 			</Grid>
