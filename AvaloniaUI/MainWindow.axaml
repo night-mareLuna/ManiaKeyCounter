@@ -26,6 +26,9 @@
 		</Border>
 
 		<Grid ColumnDefinitions="290,Auto,Auto" RowDefinitions="Auto,Auto,Auto"  Margin="5 5">
+
+			<!-- Diff names -->
+
 			<TextBlock Margin="5 5"
 				Grid.Row="0"
 				Grid.Column="0"
@@ -41,6 +44,8 @@
 				Text="{Binding DiffName2}"
 				ToolTip.Tip="{Binding DiffName2}">
 			</TextBlock>
+
+			<!-- Data Grids -->
 
 			<DataGrid Margin="5 5"
 				Name="DataGrid1"
@@ -89,6 +94,8 @@
 					</Style>
 				</DataGrid.Styles>
 			</DataGrid>
+
+			<!-- Buttons -->
 
 			<Grid ColumnDefinitions="Auto,Auto,Auto" RowDefinitions="Auto,Auto,Auto"  Margin="5 5"
 				Grid.Row="2" Grid.Column="0">
