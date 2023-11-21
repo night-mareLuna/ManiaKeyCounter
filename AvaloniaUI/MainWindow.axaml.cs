@@ -14,11 +14,7 @@ namespace KeyCounter
 			Width = 600;
 			Height = 500;
 
-			MinWidth = 600;
-			MinHeight = 500;
-
-			MaxWidth = 600;
-			MaxHeight = 500;
+			CanResize = false;
 	    }
 
 		private async void OpenFile(object source, RoutedEventArgs args)
