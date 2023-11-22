@@ -36,7 +36,7 @@ public class BeatmapPicker
 		{
 			var baseAddresses = new OsuBaseAddresses();
 			osu.TryRead(baseAddresses.Beatmap);
-			string? osuSongsPath = await TryGetSongsFolder();
+			string? osuSongsPath = await TryGetSongsFolder(true);
 			string currentBeatmap = baseAddresses.Beatmap.FolderName + '\\' + baseAddresses.Beatmap.OsuFileName;
 			string fullBeatmapPath = osuSongsPath+currentBeatmap;
 
@@ -52,10 +52,13 @@ public class BeatmapPicker
 	}
 #endif
 
-	private static async Task<string?> TryGetSongsFolder()
+	private static async Task<string?> TryGetSongsFolder(bool fromReader = false)
 	{
-		string? fromJson = await JsonReader.GetLastSongFolderJSON();
-		if(fromJson is not null) return fromJson;
+		if(!fromReader)
+		{
+			string? fromJson = await JsonReader.GetLastSongFolderJSON();
+			if(fromJson is not null) return fromJson;
+		}
 #if Linux
 		try
 		{
