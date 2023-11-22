@@ -1,6 +1,6 @@
-﻿using Avalonia.Platform.Storage;
+﻿using System.Diagnostics;
+using Avalonia.Platform.Storage;
 #if Windows
-using System.Diagnostics;
 using KeyCounter.ViewModels;
 using OsuMemoryDataProvider;
 using OsuMemoryDataProvider.OsuMemoryModels;
@@ -11,8 +11,8 @@ public class BeatmapPicker
 {
 	public static async Task<string[]?> GetOsuBeatmap(IStorageProvider storage)
 	{
-		IStorageFolder? SongFolder = 
-			await storage.TryGetFolderFromPathAsync(await JsonReader.GetLastSongFolderJSON());
+		string? StrSongFolder = await TryGetSongsFolder();
+		IStorageFolder? SongFolder = StrSongFolder!= null ? await storage.TryGetFolderFromPathAsync(new Uri(StrSongFolder)) : null;
 
 		var file = await storage.OpenFilePickerAsync(new FilePickerOpenOptions()
 		{
@@ -34,10 +34,9 @@ public class BeatmapPicker
 		IStorageFile? osuFile = null;
 		if(osu.CanRead)
 		{
-			var process = Process.GetProcessesByName("osu!").First();
 			var baseAddresses = new OsuBaseAddresses();
 			osu.TryRead(baseAddresses.Beatmap);
-			string osuSongsPath = process.MainModule!.FileName.Remove(process.MainModule!.FileName.Length-9) + "\\Songs\\";
+			string osuSongsPath = TryGetSongsFolder();
 			string currentBeatmap = baseAddresses.Beatmap.FolderName + '\\' + baseAddresses.Beatmap.OsuFileName;
 			string fullBeatmapPath = osuSongsPath+currentBeatmap;
 
@@ -52,6 +51,59 @@ public class BeatmapPicker
 		return await ProcessFile(osuFile!);
 	}
 #endif
+
+	private static async Task<string?> TryGetSongsFolder()
+	{
+		string? fromJson = await JsonReader.GetLastSongFolderJSON();
+		if(fromJson is not null) return fromJson;
+#if Linux
+		try
+		{
+			var process = new Process()
+			{
+				StartInfo = new ProcessStartInfo
+				{
+					FileName = "/bin/bash",
+					Arguments = "-c \"pgrep osu\"",
+					RedirectStandardOutput = true,
+					UseShellExecute = false,
+					CreateNoWindow = true,
+				}
+			};
+			process.Start();
+			string result = process.StandardOutput.ReadToEnd();
+			process.WaitForExit();
+			if(result=="") throw new Exception("Could not find a running osu! process.");
+			else
+			{
+				process.StartInfo.Arguments = "-c \"cat /proc/`pgrep osu`/maps | grep -e osu!.exe\"";
+				process.Start();
+				result = process.StandardOutput.ReadToEnd();
+				process.WaitForExit();
+				string osuSongsPath = result[result.IndexOf('/')..result.LastIndexOf('/')]+"/Songs/";
+				return osuSongsPath;
+			}
+
+		}
+		catch(Exception e)
+		{
+			Console.WriteLine(e.Message);
+			return null;
+		}
+#elif Windows
+		try
+		{
+			var process = Process.GetProcessesByName("osu!").First();
+			string osuSongsPath = process.MainModule!.FileName.Remove(process.MainModule!.FileName.Length-9) + "\\Songs\\";
+			return osuSongsPath;
+		}
+		catch(Exception e)
+		{
+			Console.WriteLine(e.Message);
+			return null;
+		}
+#endif
+	}
 
 	private static async Task<string[]?> ProcessFile(IStorageFile file)
 	{
