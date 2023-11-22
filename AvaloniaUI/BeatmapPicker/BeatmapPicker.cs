@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using Avalonia.Platform.Storage;
 #if Windows
 using KeyCounter.ViewModels;
@@ -45,7 +45,7 @@ public class BeatmapPicker
 		else
 		{
 			Console.WriteLine("Unable to read current osu! process. Is osu! running?");
-			KeyDataGridViewModel.CheckIsOsuOpen();
+			KeyDataGridViewModel.TryConnectToOsu();
 		}
 
 		return await ProcessFile(osuFile!);

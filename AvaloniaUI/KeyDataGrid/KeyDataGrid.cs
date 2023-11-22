@@ -29,7 +29,7 @@ namespace KeyCounter.ViewModels
 			DiffName1 = noResultYet;
 			DiffName2 = noResultYet;
 
-			CheckIsOsuOpen();
+			TryConnectToOsu();
 		}
 		
 
@@ -84,7 +84,7 @@ namespace KeyCounter.ViewModels
 			};
 		}
 
-		public static void CheckIsOsuOpen()
+		public static void TryConnectToOsu()
 		{
 			It!.CanReadOsu = false;
 #if Windows
