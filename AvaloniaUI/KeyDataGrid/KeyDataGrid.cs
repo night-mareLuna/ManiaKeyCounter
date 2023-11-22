@@ -54,7 +54,7 @@ namespace KeyCounter.ViewModels
 			else
 			{
 				keyData.Add(new Keys(0,0));
-				diffName = "Selected file is not an osu!mania beatmap.";
+				diffName = "Error!";
 			}
 
 			var ObsColKeyData = new ObservableCollection<Keys>(keyData);
