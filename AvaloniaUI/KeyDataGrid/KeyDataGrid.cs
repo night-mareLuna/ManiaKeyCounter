@@ -1,5 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+#if Windows
+using OsuMemoryDataProvider;
+#endif
 
 namespace KeyCounter.ViewModels
 {
@@ -13,6 +16,9 @@ namespace KeyCounter.ViewModels
 		private string _DiffName1;
 		[ObservableProperty]
 		private string _DiffName2;
+		[ObservableProperty]
+		private bool _CanReadOsu = false;
+		private bool isClosed = false;
 		private static readonly string noResultYet = "No Result Calculated";
 
 		private static KeyDataGridViewModel? It;
@@ -22,6 +28,8 @@ namespace KeyCounter.ViewModels
 
 			DiffName1 = noResultYet;
 			DiffName2 = noResultYet;
+
+			TryConnectToOsu();
 		}
 		
 
@@ -46,7 +54,7 @@ namespace KeyCounter.ViewModels
 			else
 			{
 				keyData.Add(new Keys(0,0));
-				diffName = "Selected file is not an osu!mania beatmap.";
+				diffName = "Error!";
 			}
 
 			var ObsColKeyData = new ObservableCollection<Keys>(keyData);
@@ -75,6 +83,32 @@ namespace KeyCounter.ViewModels
 				_ => null
 			};
 		}
+
+		public static void TryConnectToOsu()
+		{
+			It!.CanReadOsu = false;
+#if Windows
+			StructuredOsuMemoryReader osu = StructuredOsuMemoryReader.Instance.GetInstanceForWindowTitleHint("");
+			Console.WriteLine("Trying to connect to osu!...");
+			new Thread(delegate ()
+			{
+				while(!osu.CanRead)
+				{
+					if(It!.isClosed)
+						return;
+					Thread.Sleep(2000);
+					continue;
+				}
+
+				Console.WriteLine("Connected to osu!");
+				It!.CanReadOsu = true;
+			}).Start();
+#elif Linux
+			Console.WriteLine("Cannot connect to osu! to read files directly from client.\nThis is only possible in Windows and disabled in Linux builds");
+#endif
+		}
+
+		public static void CloseThread() => It!.isClosed = true;
 	}
 }
 

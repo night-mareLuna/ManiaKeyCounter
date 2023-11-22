@@ -14,12 +14,14 @@ namespace KeyCounter
 			Width = 600;
 			Height = 500;
 
-			MinWidth = 600;
-			MinHeight = 500;
-
-			MaxWidth = 600;
-			MaxHeight = 500;
+			CanResize = false;
 	    }
+
+		protected override void OnClosing(WindowClosingEventArgs e)
+		{
+			KeyDataGridViewModel.CloseThread();
+			base.OnClosing(e);
+		}
 
 		private async void OpenFile(object source, RoutedEventArgs args)
 		{
@@ -27,10 +29,13 @@ namespace KeyCounter
 			int button = (int)char.GetNumericValue(buttonClicked[^1]);
 
 			var storage = StorageProvider;
+#if Windows
+			string[]? osuFile = buttonClicked.Contains("SelectFile") ? await BeatmapPicker.GetOsuBeatmap(storage) : await BeatmapPicker.GetCurrentPlayingOsuBeatmap(storage);
+#elif Linux
 			string[]? osuFile = await BeatmapPicker.GetOsuBeatmap(storage);
-
+#endif
 			if(osuFile is null) return;
-			if(!GetObjects.IsOsuManiaFile(osuFile!))
+			if(!GetObjects.IsOsuManiaFile(osuFile))
 			{
 				KeyDataGridViewModel.UpdateKeyData(null!, button);
 				Console.WriteLine("Selected file is not an osu!mania beatmap.");
