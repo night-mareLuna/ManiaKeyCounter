@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Avalonia.Platform.Storage;
 #if Windows
 using KeyCounter.ViewModels;
@@ -36,7 +36,7 @@ public class BeatmapPicker
 		{
 			var baseAddresses = new OsuBaseAddresses();
 			osu.TryRead(baseAddresses.Beatmap);
-			string osuSongsPath = TryGetSongsFolder();
+			string? osuSongsPath = await TryGetSongsFolder();
 			string currentBeatmap = baseAddresses.Beatmap.FolderName + '\\' + baseAddresses.Beatmap.OsuFileName;
 			string fullBeatmapPath = osuSongsPath+currentBeatmap;
 
@@ -100,6 +100,7 @@ public class BeatmapPicker
 		catch(Exception e)
 		{
 			Console.WriteLine(e.Message);
+			Console.WriteLine("Most likely could not find a running osu! process.");
 			return null;
 		}
 #endif
