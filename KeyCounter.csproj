@@ -43,6 +43,8 @@
 	<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 	<PackageReference Include="OsuMemoryDataProvider" Version="0.10.0" Condition="'$(IsWindows)'=='true'" />
 	
+	<AvaloniaResource Include="AvaloniaUI/Assets/**"/>
+	
 	<Compile Update="CountKeys/*" />
 	<Compile Update="GetObjects/*" />
 	<Compile Update="JsonReader/*" />

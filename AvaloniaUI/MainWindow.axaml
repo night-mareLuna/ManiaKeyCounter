@@ -106,7 +106,7 @@
 				Grid.Row="0" Grid.Column="0"
 				ToolTip.Tip="Open file explorer to select osu!mania beatmap."
 				Click="OpenFile">
-					<Image Source="{SvgImage AvaloniaUI/Assets/icons8-opened-folder.svg}"
+					<Image Source="{SvgImage Assets/icons8-opened-folder.svg}"
 						Height="30"/>
 				</Button>
 
@@ -135,7 +135,7 @@
 				Grid.Row="0" Grid.Column="0"
 				ToolTip.Tip="Open file explorer to select osu!mania beatmap."
 				Click="OpenFile">
-					<Image Source="{SvgImage AvaloniaUI/Assets/icons8-opened-folder.svg}"
+					<Image Source="{SvgImage Assets/icons8-opened-folder.svg}"
 						Height="30"/>
 				</Button>
 
