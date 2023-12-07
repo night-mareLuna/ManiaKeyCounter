@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="400"
+        mc:Ignorable="d" d:DesignWidth="590" d:DesignHeight="480"
         x:Class="KeyCounter.MainWindow"
 		xmlns:vm="using:KeyCounter.ViewModels"
         x:DataType="vm:KeyDataGridViewModel"
@@ -13,149 +13,155 @@
     		<local:RowBackgroundConverter x:Key="RowBackgroundConverter"/>
   		</Window.Resources>
 
-    <StackPanel>
-		<Border Margin="10 10"
-			CornerRadius="5"
-			Background="Pink">
-			<TextBlock Margin="5" 
-				FontSize="20"
-				HorizontalAlignment="Center"
-				Foreground="Black"
-				Text="Mania Key Counter">
-			</TextBlock>
-		</Border>
+	<!-- Menu Bar -->
 
-		<Grid ColumnDefinitions="290,Auto,Auto" RowDefinitions="Auto,Auto,Auto"  Margin="5 5">
+	<DockPanel>
+		<Menu DockPanel.Dock="Top">
+			<MenuItem Header="_File">
+				<MenuItem Header="_Settings"/>
+				<Separator/>
+				<MenuItem Header="_Exit" Click="Exit"/>
+			</MenuItem>
+			<MenuItem Header="_Help">
+				<MenuItem Header="_About" Click="OpenAbout"/>
+			</MenuItem>
+		</Menu>
 
-			<!-- Diff names -->
+		<StackPanel>
+			<Grid ColumnDefinitions="290,Auto,Auto" RowDefinitions="Auto,Auto,Auto"  Margin="5 5">
 
-			<TextBlock Margin="5 5"
-				Grid.Row="0"
-				Grid.Column="0"
-				Width="260"
-				Text="{Binding DiffName1}"
-				ToolTip.Tip="{Binding DiffName1}">
-			</TextBlock>
+				<!-- Diff names -->
 
-			<TextBlock Margin="5 5"
-				Grid.Row="0"
-				Grid.Column="1"
-				Width="260"
-				Text="{Binding DiffName2}"
-				ToolTip.Tip="{Binding DiffName2}">
-			</TextBlock>
+				<TextBlock Margin="5 5"
+					Grid.Row="0"
+					Grid.Column="0"
+					Width="260"
+					Text="{Binding DiffName1}"
+					ToolTip.Tip="{Binding DiffName1}">
+				</TextBlock>
 
-			<!-- Data Grids -->
+				<TextBlock Margin="5 5"
+					Grid.Row="0"
+					Grid.Column="1"
+					Width="260"
+					Text="{Binding DiffName2}"
+					ToolTip.Tip="{Binding DiffName2}">
+				</TextBlock>
 
-			<DataGrid Margin="5 5"
-				Name="DataGrid1"
-				Grid.Row="1" Grid.Column="0"
-				Height="350"
-				Width="280"
-				ItemsSource="{Binding KeyData1}"
-				AutoGenerateColumns="False"
-				IsReadOnly="True"
-				GridLinesVisibility="All"
-				BorderThickness="1"
-				BorderBrush="White">
-				<DataGrid.Columns>
-					<DataGridTextColumn Header="Key" Width="80" 
-						Binding="{Binding Lane}"/>
-					<DataGridTextColumn Header="Objects" Width="*" 
-						Binding="{Binding KeyCount}"/>
-				</DataGrid.Columns>
-				<DataGrid.Styles>
-					<Style Selector="DataGridRow">
-						<Setter Property="Foreground" Value="{Binding Converter={StaticResource RowBackgroundConverter}, ConverterParameter=1}" />
-					</Style>
-				</DataGrid.Styles>
-			</DataGrid>
+				<!-- Data Grids -->
 
-			<DataGrid Margin="5 5"
-				Name="DataGrid2"
-				Grid.Row="1" Grid.Column="1"
-				Height="350"
-				Width="280"
-				ItemsSource="{Binding KeyData2}"
-				AutoGenerateColumns="False"
-				IsReadOnly="True"
-				GridLinesVisibility="All"
-				BorderThickness="1"
-				BorderBrush="White">
-				<DataGrid.Columns>
-					<DataGridTextColumn Header="Key" Width="80" 
-						Binding="{Binding Lane}"/>
-					<DataGridTextColumn Header="Objects" Width="*" 
-						Binding="{Binding KeyCount}" />
-				</DataGrid.Columns>
-				<DataGrid.Styles>
-					<Style Selector="DataGridRow">
-						<Setter Property="Foreground" Value="{Binding Converter={StaticResource RowBackgroundConverter}, ConverterParameter=2}" />
-					</Style>
-				</DataGrid.Styles>
-			</DataGrid>
+				<DataGrid Margin="5 5"
+					Name="DataGrid1"
+					Grid.Row="1" Grid.Column="0"
+					Height="350"
+					Width="280"
+					ItemsSource="{Binding KeyData1}"
+					AutoGenerateColumns="False"
+					IsReadOnly="True"
+					GridLinesVisibility="All"
+					BorderThickness="1"
+					BorderBrush="White">
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="Key" Width="80" 
+							Binding="{Binding Lane}"/>
+						<DataGridTextColumn Header="Objects" Width="*" 
+							Binding="{Binding KeyCount}"/>
+					</DataGrid.Columns>
+					<DataGrid.Styles>
+						<Style Selector="DataGridRow">
+							<Setter Property="Foreground" Value="{Binding Converter={StaticResource RowBackgroundConverter}, ConverterParameter=1}" />
+						</Style>
+					</DataGrid.Styles>
+				</DataGrid>
 
-			<!-- Buttons -->
+				<DataGrid Margin="5 5"
+					Name="DataGrid2"
+					Grid.Row="1" Grid.Column="1"
+					Height="350"
+					Width="280"
+					ItemsSource="{Binding KeyData2}"
+					AutoGenerateColumns="False"
+					IsReadOnly="True"
+					GridLinesVisibility="All"
+					BorderThickness="1"
+					BorderBrush="White">
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="Key" Width="80" 
+							Binding="{Binding Lane}"/>
+						<DataGridTextColumn Header="Objects" Width="*" 
+							Binding="{Binding KeyCount}" />
+					</DataGrid.Columns>
+					<DataGrid.Styles>
+						<Style Selector="DataGridRow">
+							<Setter Property="Foreground" Value="{Binding Converter={StaticResource RowBackgroundConverter}, ConverterParameter=2}" />
+						</Style>
+					</DataGrid.Styles>
+				</DataGrid>
 
-			<Grid ColumnDefinitions="Auto,Auto,Auto" RowDefinitions="Auto,Auto,Auto"  Margin="5 5"
-				Grid.Row="2" Grid.Column="0">
+				<!-- Buttons -->
 
-				<Button Margin="5 5"
-				Name="ButtonSelectFile1"
-				Height="34"
-				Grid.Row="0" Grid.Column="0"
-				ToolTip.Tip="Open file explorer to select osu!mania beatmap."
-				Click="OpenFile">
-					<Image Source="{SvgImage Assets/icons8-opened-folder.svg}"
-						Height="30"/>
-				</Button>
+				<Grid ColumnDefinitions="Auto,Auto,Auto" RowDefinitions="Auto,Auto,Auto"  Margin="5 5"
+					Grid.Row="2" Grid.Column="0">
 
-				<Button Margin="5 5"
-				Name="ButtonReadOsu1"
-				Height="34"
-				FontSize="16"
-				Grid.Row="0" Grid.Column="1"
-				IsEnabled="{Binding CanReadOsu}"
-				ToolTip.Tip="Read currently selected beatmap in osu!"
-				Click="OpenFile">
-				<TextBlock 
-					HorizontalAlignment="Center"
-					Text="Read from osu!"/>
-				</Button>
-			
+					<Button Margin="5 5"
+					Name="ButtonSelectFile1"
+					Height="34"
+					Grid.Row="0" Grid.Column="0"
+					ToolTip.Tip="Open file explorer to select osu!mania beatmap."
+					Click="OpenFile">
+						<Image Source="{SvgImage Assets/icons8-opened-folder.svg}"
+							Height="30"/>
+					</Button>
+
+					<Button Margin="5 5"
+					Name="ButtonReadOsu1"
+					Height="34"
+					FontSize="16"
+					Grid.Row="0" Grid.Column="1"
+					IsEnabled="{Binding CanReadOsu}"
+					ToolTip.Tip="Read currently selected beatmap in osu!"
+					Click="OpenFile">
+					<TextBlock 
+						HorizontalAlignment="Center"
+						Text="Read from osu!"/>
+					</Button>
+				
+				</Grid>
+
+				<Grid ColumnDefinitions="Auto,Auto,Auto" RowDefinitions="Auto,Auto,Auto"  Margin="5 5"
+					Grid.Row="2" Grid.Column="1">
+
+					<Button Margin="5 5"
+					Name="ButtonSelectFile2"
+					Height="34"
+					FontSize="16"
+					Grid.Row="0" Grid.Column="0"
+					ToolTip.Tip="Open file explorer to select osu!mania beatmap."
+					Click="OpenFile">
+						<Image Source="{SvgImage Assets/icons8-opened-folder.svg}"
+							Height="30"/>
+					</Button>
+
+					<Button Margin="5 5"
+					Name="ButtonReadOsu2"
+					Height="34"
+					FontSize="16"
+					Grid.Row="0" Grid.Column="1"
+					IsEnabled="{Binding CanReadOsu}"
+					ToolTip.Tip="Read currently selected beatmap in osu!"
+					Click="OpenFile">
+					<TextBlock 
+						HorizontalAlignment="Center"
+						Text="Read from osu!"/>
+					</Button>
+				
+				</Grid>
 			</Grid>
 
-			<Grid ColumnDefinitions="Auto,Auto,Auto" RowDefinitions="Auto,Auto,Auto"  Margin="5 5"
-				Grid.Row="2" Grid.Column="1">
-
-				<Button Margin="5 5"
-				Name="ButtonSelectFile2"
-				Height="34"
-				FontSize="16"
-				Grid.Row="0" Grid.Column="0"
-				ToolTip.Tip="Open file explorer to select osu!mania beatmap."
-				Click="OpenFile">
-					<Image Source="{SvgImage Assets/icons8-opened-folder.svg}"
-						Height="30"/>
-				</Button>
-
-				<Button Margin="5 5"
-				Name="ButtonReadOsu2"
-				Height="34"
-				FontSize="16"
-				Grid.Row="0" Grid.Column="1"
-				IsEnabled="{Binding CanReadOsu}"
-				ToolTip.Tip="Read currently selected beatmap in osu!"
-				Click="OpenFile">
-				<TextBlock 
-					HorizontalAlignment="Center"
-					Text="Read from osu!"/>
-				</Button>
 			
-			</Grid>
-		</Grid>
+		</StackPanel>
+	</DockPanel>
 
-		
-	</StackPanel>
+    
 
 </Window>
