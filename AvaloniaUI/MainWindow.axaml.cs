@@ -11,8 +11,8 @@ namespace KeyCounter
 	        InitializeComponent();
 			DataContext = new KeyDataGridViewModel();
 
-			Width = 600;
-			Height = 500;
+			Width = 590;
+			Height = 480;
 
 			CanResize = false;
 	    }
@@ -44,5 +44,13 @@ namespace KeyCounter
 
 			KeyDataGridViewModel.UpdateKeyData(osuFile, button);
 		}
+
+		private void OpenAbout(object source, RoutedEventArgs args)
+		{
+			var AboutWindow = new About();
+			AboutWindow.ShowDialog(this);
+		}
+
+		private void Exit(object source, RoutedEventArgs args) => Close();
 	}
 }
