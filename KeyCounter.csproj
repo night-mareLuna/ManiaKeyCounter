@@ -32,18 +32,20 @@
 
 
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="11.0.2" />
-    <PackageReference Include="Avalonia.Desktop" Version="11.0.2" />
-    <PackageReference Include="Avalonia.Svg.Skia" Version="11.0.0.4" />
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.2" />
-    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.0.2" />
-	<PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.2" />
+    <PackageReference Include="ActiproSoftware.Controls.Avalonia.Pro" Version="23.1.1" />
+    <PackageReference Include="Avalonia" Version="11.0.5" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.0.5" />
+    <PackageReference Include="Avalonia.Svg.Skia" Version="11.0.0.7" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.5" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.0.5" />
+	<PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.5" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.2" />
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.5" />
 	<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+	<PackageReference Include="Octokit" Version="9.0.0" />
 	<PackageReference Include="OsuMemoryDataProvider" Version="0.10.0" Condition="'$(IsWindows)'=='true'" />
 	
-	<AvaloniaResource Include="AvaloniaUI/Assets/**"/>
+	<AvaloniaResource Include="AvaloniaUI/Assets/**" />
 	
 	<Compile Update="CountKeys/*" />
 	<Compile Update="GetObjects/*" />
