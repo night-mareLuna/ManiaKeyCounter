@@ -21,8 +21,6 @@ namespace KeyCounter.ViewModels
 		private bool _CanReadOsu = false;
 		[ObservableProperty]
 		private string _FolderIcon;
-		[ObservableProperty]
-		private bool _IsDarkTheme;
 		private bool isClosed = false;
 		private static readonly string noResultYet = "No Result Calculated";
 
@@ -33,18 +31,18 @@ namespace KeyCounter.ViewModels
 
 			DiffName1 = noResultYet;
 			DiffName2 = noResultYet;
-			IsDarkTheme = Avalonia.Application.Current!.ActualThemeVariant == ThemeVariant.Dark;
 
-			FolderIcon = "Assets/icons8-opened-folder.svg";
-			ThemeChange(IsDarkTheme);
+			FolderIcon = "";
+			ThemeChange();
 
 			TryConnectToOsu();
 		}
 
-		public static void ThemeChange(bool darkTheme)
+		public static async void ThemeChange(bool? darkTheme = null)
 		{
-			It!.IsDarkTheme = darkTheme;
-			It!.FolderIcon = darkTheme ? "Assets/icons8-opened-folder.svg" : "Assets/icons8-opened-folder-light.svg";
+			darkTheme ??= await JsonReader.GetTheme();
+			darkTheme ??= Avalonia.Application.Current!.ActualThemeVariant == ThemeVariant.Dark;
+			It!.FolderIcon = (bool)darkTheme ? "Assets/icons8-opened-folder.svg" : "Assets/icons8-opened-folder-light.svg";
 		}
 
 		public static void UpdateKeyData(string[] osuFile, int button)
