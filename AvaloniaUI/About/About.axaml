@@ -94,6 +94,16 @@
 				Text="icons8"/>
 		</Grid>
 
+		<!-- Theme -->
+
+		<ToggleSwitch Margin="10 10"
+			Name="ThemeSwitch"
+			IsChecked="{Binding IsDarkTheme}"
+            Content="Theme"
+            OffContent="Light"
+            OnContent="Dark"
+			Command="{Binding SetTheme}"
+			CommandParameter="{Binding #ThemeSwitch.IsChecked}"/>
 	</StackPanel>
 
 

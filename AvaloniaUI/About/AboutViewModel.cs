@@ -1,5 +1,4 @@
 using Avalonia.Styling;
-using Avalonia.Themes.Fluent;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Octokit;
 
@@ -11,6 +10,9 @@ public partial class AboutViewModel : ObservableObject
 	private string _CurrentVersion;
 	[ObservableProperty]
 	private string _LatestVersion;
+
+	[ObservableProperty]
+	private bool _IsDarkTheme;
 
 	//URLs
 	[ObservableProperty]
@@ -42,6 +44,8 @@ public partial class AboutViewModel : ObservableObject
 		URLOpenedFolder = "https://icons8.com/icon/wrVhHgaitIQx/opened-folder";
 		URLIcons8 = "https://icons8.com/";
 
+		IsDarkTheme = Avalonia.Application.Current!.ActualThemeVariant == ThemeVariant.Dark;
+
 		CurrentVersion = "v1.4.0-pre";
 		LatestVersion = GetLatestVersion();
 	}
@@ -63,5 +67,14 @@ public partial class AboutViewModel : ObservableObject
 			FileName = link
 		};
 		System.Diagnostics.Process.Start(psi);
+	}
+
+	public void SetTheme(bool darkTheme)
+	{
+		Avalonia.Application.Current!.RequestedThemeVariant =
+			darkTheme ? ThemeVariant.Dark : ThemeVariant.Light;
+
+		JsonReader.SetTheme(darkTheme);
+		KeyDataGridViewModel.ThemeChange(darkTheme);
 	}
 }

@@ -1,6 +1,8 @@
 using System.Globalization;
+using Avalonia;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
+using Avalonia.Styling;
 using KeyCounter.ViewModels;
 namespace KeyCounter;
 public class RowBackgroundConverter : IValueConverter
@@ -23,7 +25,8 @@ public class RowBackgroundConverter : IValueConverter
                 return new SolidColorBrush(Colors.Orange);
 
         }
-        return new SolidColorBrush(Colors.White);
+        return Application.Current!.RequestedThemeVariant == ThemeVariant.Dark ? 
+			new SolidColorBrush(Colors.White) : new SolidColorBrush(Colors.Black);
     }
 
 	private static List<Keys>? currentKeyData = null;

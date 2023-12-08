@@ -1,5 +1,7 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Styling;
 using KeyCounter.ViewModels;
 
 namespace KeyCounter
@@ -15,7 +17,17 @@ namespace KeyCounter
 			Height = 480;
 
 			CanResize = false;
+			SetTheme();
 	    }
+
+		private static async void SetTheme()
+		{
+			bool? theme = await JsonReader.GetTheme();
+			if(theme is null) return;
+			
+			Application.Current!.RequestedThemeVariant = (bool)theme ?
+				ThemeVariant.Dark : ThemeVariant.Light;
+		}
 
 		protected override void OnClosing(WindowClosingEventArgs e)
 		{

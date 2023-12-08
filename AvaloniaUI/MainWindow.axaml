@@ -18,8 +18,6 @@
 	<DockPanel>
 		<Menu DockPanel.Dock="Top">
 			<MenuItem Header="_File">
-				<MenuItem Header="_Settings"/>
-				<Separator/>
 				<MenuItem Header="_Exit" Click="Exit"/>
 			</MenuItem>
 			<MenuItem Header="_Help">
@@ -109,7 +107,7 @@
 					Grid.Row="0" Grid.Column="0"
 					ToolTip.Tip="Open file explorer to select osu!mania beatmap."
 					Click="OpenFile">
-						<Image Source="{SvgImage Assets/icons8-opened-folder.svg}"
+						<Svg Path="{Binding FolderIcon}"
 							Height="30"/>
 					</Button>
 
@@ -138,7 +136,7 @@
 					Grid.Row="0" Grid.Column="0"
 					ToolTip.Tip="Open file explorer to select osu!mania beatmap."
 					Click="OpenFile">
-						<Image Source="{SvgImage Assets/icons8-opened-folder.svg}"
+						<Svg Path="{Binding FolderIcon}"
 							Height="30"/>
 					</Button>
 

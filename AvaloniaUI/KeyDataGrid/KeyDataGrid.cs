@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
 #if Windows
 using OsuMemoryDataProvider;
@@ -18,6 +19,10 @@ namespace KeyCounter.ViewModels
 		private string _DiffName2;
 		[ObservableProperty]
 		private bool _CanReadOsu = false;
+		[ObservableProperty]
+		private string _FolderIcon;
+		[ObservableProperty]
+		private bool _IsDarkTheme;
 		private bool isClosed = false;
 		private static readonly string noResultYet = "No Result Calculated";
 
@@ -28,10 +33,19 @@ namespace KeyCounter.ViewModels
 
 			DiffName1 = noResultYet;
 			DiffName2 = noResultYet;
+			IsDarkTheme = Avalonia.Application.Current!.ActualThemeVariant == ThemeVariant.Dark;
+
+			FolderIcon = "Assets/icons8-opened-folder.svg";
+			ThemeChange(IsDarkTheme);
 
 			TryConnectToOsu();
 		}
-		
+
+		public static void ThemeChange(bool darkTheme)
+		{
+			It!.IsDarkTheme = darkTheme;
+			It!.FolderIcon = darkTheme ? "Assets/icons8-opened-folder.svg" : "Assets/icons8-opened-folder-light.svg";
+		}
 
 		public static void UpdateKeyData(string[] osuFile, int button)
 		{
