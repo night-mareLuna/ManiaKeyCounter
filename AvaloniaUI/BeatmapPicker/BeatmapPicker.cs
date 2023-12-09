@@ -118,7 +118,7 @@ public class BeatmapPicker
 		if((await file.GetBasicPropertiesAsync()).Size < 1024 * 1024 * 2)
 		{
 			string? folder = await (await file.GetParentAsync()).SaveBookmarkAsync();
-			if(folder!=null) JsonReader.SaveToJSON(folder);
+			if(folder!=null) JsonReader.SetLastSongFolderJSON(folder);
 				await using var readFile = await file.OpenReadAsync();
 			using var reader = new StreamReader(readFile);
 			string[] osuFile = reader.ReadToEnd().Split('\n');

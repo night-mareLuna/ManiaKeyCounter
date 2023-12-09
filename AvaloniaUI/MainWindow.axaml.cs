@@ -1,5 +1,7 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Styling;
 using KeyCounter.ViewModels;
 
 namespace KeyCounter
@@ -11,11 +13,21 @@ namespace KeyCounter
 	        InitializeComponent();
 			DataContext = new KeyDataGridViewModel();
 
-			Width = 600;
-			Height = 500;
+			Width = 590;
+			Height = 480;
 
 			CanResize = false;
+			SetTheme();
 	    }
+
+		private static async void SetTheme()
+		{
+			bool? theme = await JsonReader.GetTheme();
+			if(theme is null) return;
+			
+			Application.Current!.RequestedThemeVariant = (bool)theme ?
+				ThemeVariant.Dark : ThemeVariant.Light;
+		}
 
 		protected override void OnClosing(WindowClosingEventArgs e)
 		{
@@ -44,5 +56,13 @@ namespace KeyCounter
 
 			KeyDataGridViewModel.UpdateKeyData(osuFile, button);
 		}
+
+		private void OpenAbout(object source, RoutedEventArgs args)
+		{
+			var AboutWindow = new About();
+			AboutWindow.ShowDialog(this);
+		}
+
+		private void Exit(object source, RoutedEventArgs args) => Close();
 	}
 }

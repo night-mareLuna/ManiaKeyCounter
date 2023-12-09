@@ -1,0 +1,111 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:actipro="http://schemas.actiprosoftware.com/avaloniaui"
+        mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="300"
+        x:Class="KeyCounter.About"
+		xmlns:vm="using:KeyCounter.ViewModels"
+        x:DataType="vm:AboutViewModel"
+		xmlns:local="clr-namespace:KeyCounter;assembly=KeyCounter"
+		WindowStartupLocation="CenterOwner"
+        Title="About">
+
+	<StackPanel>
+
+		<!-- Github link -->
+
+		<actipro:HyperlinkTextBlock Margin="5 5"
+			FontSize="20"
+			Command="{Binding OpenLink}"
+			CommandParameter="{Binding URLGitHub}"
+			HorizontalAlignment="Center"
+			Text="Github"/>
+
+		<Grid ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto" Margin="5 5">
+
+			<!-- Version -->
+
+			<TextBlock
+				Grid.Row="0"
+				Grid.Column="0"
+				Text="Current Version: "/>
+			<TextBlock
+				Grid.Row="0" 
+				Grid.Column="1"
+				Text="{Binding CurrentVersion}"/>
+			
+			<TextBlock
+				Grid.Row="1"
+				Grid.Column="0" 
+				Text="Latest Version: "/>
+			<TextBlock
+				Grid.Row="1" 
+				Grid.Column="1"
+				Text="{Binding LatestVersion}"/>
+
+		</Grid>
+
+		<StackPanel Margin="5 5">
+
+			<!-- Libraries -->
+
+			<TextBlock
+				Text="Used Libraries:"/>
+
+			<actipro:HyperlinkTextBlock
+				Command="{Binding OpenLink}"
+				CommandParameter="{Binding URLAvaloniaUI}"
+				Text="AvaloniaUI"/>
+			<actipro:HyperlinkTextBlock
+				Command="{Binding OpenLink}"
+				CommandParameter="{Binding URLOsuMemoryDataProvider}"
+				Text="OsuMemoryDataProvider"/>
+			<actipro:HyperlinkTextBlock
+				Command="{Binding OpenLink}"
+				CommandParameter="{Binding URLOctokit}"
+				Text="Octokit"/>
+			<actipro:HyperlinkTextBlock
+				Command="{Binding OpenLink}"
+				CommandParameter="{Binding URLActipro}"
+				Text="Actipro AvaloniaUI Controls"/>
+			<actipro:HyperlinkTextBlock
+				Command="{Binding OpenLink}"
+				CommandParameter="{Binding URLAvaloniaSvg}"
+				Text="Avalonia.Svg.Skia"/>
+				
+		</StackPanel>
+
+		<!-- Used Icon(s) -->
+
+		<Grid ColumnDefinitions="Auto,Auto,Auto" Margin="5 5">
+			<actipro:HyperlinkTextBlock
+				Grid.Column="0"
+				Command="{Binding OpenLink}"
+				CommandParameter="{Binding URLOpenedFolder}"
+				Text="Opened Folder"/>
+			<TextBlock
+				Grid.Column="1" 
+				Text="icon by"/>
+			<actipro:HyperlinkTextBlock
+				Grid.Column="2"
+				Command="{Binding OpenLink}"
+				CommandParameter="{Binding URLIcons8}"
+				Text="icons8"/>
+		</Grid>
+
+		<!-- Theme -->
+
+		<ToggleSwitch Margin="10 10"
+			Name="ThemeSwitch"
+			IsChecked="{Binding IsDarkTheme}"
+            Content="Theme"
+            OffContent="Light"
+            OnContent="Dark"
+			Command="{Binding SetTheme}"
+			CommandParameter="{Binding #ThemeSwitch.IsChecked}"/>
+	</StackPanel>
+
+
+
+</Window>

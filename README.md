@@ -15,3 +15,6 @@ Check the object distribution for each key for osu!mania beatmaps.
 
 - [Avalonia UI](https://github.com/AvaloniaUI/Avalonia)
 - [OsuMemoryDataProvider](https://github.com/Piotrekol/ProcessMemoryDataFinder)
+- [Octokit](https://github.com/octokit/octokit.net)
+- [Actipro Avalonia Controls](https://github.com/Actipro/Avalonia-Controls)
+- [Avalonia.Svg.Skia](https://github.com/wieslawsoltes/Svg.Skia)
