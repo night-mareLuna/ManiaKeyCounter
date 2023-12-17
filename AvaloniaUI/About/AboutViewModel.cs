@@ -46,7 +46,7 @@ public partial class AboutViewModel : ObservableObject
 
 		IsDarkTheme = Avalonia.Application.Current!.ActualThemeVariant == ThemeVariant.Dark;
 
-		CurrentVersion = "v1.4.0";
+		CurrentVersion = "v1.4.1";
 		LatestVersion = GetLatestVersion();
 	}
 
